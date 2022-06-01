@@ -8,6 +8,7 @@ public class Calculator implements ActionListener {
     JTextField textField;
     JButton[] numbers;
     JButton[] operators;
+    JButton one,two,three,four,five,six,seven,eight,nine,zero;
     JButton addition, subtraction, multiplication, division, sqr, sqrRoot, clear, delete, equation;
     JPanel panel;
     Font font;
@@ -18,9 +19,9 @@ public class Calculator implements ActionListener {
         frame.setSize(500, 500);
 
         /*** text ***/
-        textField =  new JTextField();
-        textField.setBounds(50,25,400,50);
-        font = new Font("Times New Roman",Font.BOLD,30);
+        textField = new JTextField();
+        textField.setBounds(50, 25, 400, 50);
+        font = new Font("Times New Roman", Font.BOLD, 30);
         textField.setFont(font);
         frame.add(textField);
 
@@ -28,6 +29,7 @@ public class Calculator implements ActionListener {
 
         /*** BUTTONS ***/
         //Operator buttons
+        operators =  new JButton[9];
         addition = new JButton("+");
         subtraction = new JButton("-");
         multiplication = new JButton("*");
@@ -38,7 +40,31 @@ public class Calculator implements ActionListener {
         delete = new JButton("<-");
         equation = new JButton("=");
 
-        //operators[0]=
+        operators[0] = addition;
+        operators[1] = subtraction;
+        operators[2] = multiplication;
+        operators[3] = division;
+        operators[4] = sqr;
+        operators[5] = sqrRoot;
+        operators[6] = clear;
+        operators[7] = delete;
+        operators[8] = equation;
+
+
+        for (int i = 0; i < 9; i++) {
+            operators[i].addActionListener(this);
+            operators[i].setFont(font);
+            operators[i].setFocusable(false);
+        }
+
+        //numbers button
+        numbers =  new JButton[10];
+        for (int i = 0; i < 10; i++) {
+            numbers[i] = new JButton(String.valueOf(i));
+            numbers[i].addActionListener(this);
+            numbers[i].setFont(font);
+            numbers[i].setFocusable(false);
+        }
 
         frame.setLayout(null);
         frame.setVisible(true);
@@ -51,6 +77,6 @@ public class Calculator implements ActionListener {
     }
 
     public static void main(String[] args) {
-    Calculator calculator = new Calculator();
+        Calculator calculator = new Calculator();
     }
 }
