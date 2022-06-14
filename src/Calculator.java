@@ -8,15 +8,17 @@ public class Calculator implements ActionListener {
     JTextField textField;
     JButton[] numbers;
     JButton[] operators;
-    JButton one,two,three,four,five,six,seven,eight,nine,zero;
     JButton addition, subtraction, multiplication, division, sqr, sqrRoot, clear, delete, equation;
     JPanel panel;
     Font font;
 
+    final int WIDTH =700;
+    final int HEIGHT = 700;
+
     public Calculator() {
         /*** window ***/
         frame = new JFrame("Calculator");
-        frame.setSize(500, 500);
+        frame.setSize(WIDTH, HEIGHT);
 
         /*** text ***/
         textField = new JTextField();
@@ -29,7 +31,7 @@ public class Calculator implements ActionListener {
 
         /*** BUTTONS ***/
         //Operator buttons
-        operators =  new JButton[9];
+        operators = new JButton[9];
         addition = new JButton("+");
         subtraction = new JButton("-");
         multiplication = new JButton("*");
@@ -37,7 +39,7 @@ public class Calculator implements ActionListener {
         sqr = new JButton("^2");
         sqrRoot = new JButton("^(1/2)");
         clear = new JButton("C");
-        delete = new JButton("<-");
+        delete = new JButton("<");
         equation = new JButton("=");
 
         operators[0] = addition;
@@ -58,7 +60,7 @@ public class Calculator implements ActionListener {
         }
 
         //numbers button
-        numbers =  new JButton[10];
+        numbers = new JButton[10];
         for (int i = 0; i < 10; i++) {
             numbers[i] = new JButton(String.valueOf(i));
             numbers[i].addActionListener(this);
@@ -66,6 +68,34 @@ public class Calculator implements ActionListener {
             numbers[i].setFocusable(false);
         }
 
+        delete.setBounds(230, 90, 100, 30);
+        clear.setBounds(350, 90, 100, 30);
+
+        panel = new JPanel();
+        panel.setBounds(50, 80, 400, 300);
+        panel.setLayout(new GridLayout(5, 4, 1, 1));
+        panel.setBackground(Color.white);
+
+        //numbers button visible in the panel
+        panel.add(numbers[1]);
+        panel.add(numbers[2]);
+        panel.add(numbers[3]);
+        panel.add(addition);
+        panel.add(numbers[4]);
+        panel.add(numbers[5]);
+        panel.add(numbers[6]);
+        panel.add(subtraction);
+        panel.add(numbers[7]);
+        panel.add(numbers[8]);
+        panel.add(numbers[9]);
+        panel.add(multiplication);
+        panel.add(numbers[0]);
+
+//to make delete and clear button visible in the panel
+        //frame.add(delete);
+        //frame.add(clear);
+
+        frame.add(panel);
         frame.setLayout(null);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
