@@ -42,6 +42,7 @@ public class Calculator implements ActionListener {
         multiplication = new JButton("*");
         division = new JButton("/");
         sqr = new JButton("^");
+
         decimal = new JButton(".");
         clear = new JButton("C");
         delete = new JButton("<");
@@ -52,6 +53,7 @@ public class Calculator implements ActionListener {
         operators[2] = multiplication;
         operators[3] = division;
         operators[4] = sqr;
+
         operators[5] = decimal;
         operators[6] = clear;
         operators[7] = delete;
@@ -118,30 +120,24 @@ public class Calculator implements ActionListener {
         for (int i = 0; i < 10; i++) {
             if (e.getSource() == numbers[i]) {
                 textField.setText(textField.getText().concat(String.valueOf(i)));
-
             }
         }
-        num1 = Double.parseDouble(textField.getText());
-        System.out.println(num1);
 
         //if hit operations button, then shows them in text field
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 5; i++) {
             if (e.getSource() == operators[i]) {
-                //num1 = Double.parseDouble(textField.getText());
+                num1 = Double.parseDouble(textField.getText());
                 operator = operators[i].getText();
                 textField.setText("");
             }
         }
-        for (int i = 0; i < 10; i++) {
-            if (e.getSource() == numbers[i]) {
-                textField.setText(textField.getText().concat(String.valueOf(i)));
-            }
+
+        if(e.getSource()==decimal){
+            textField.setText(textField.getText().concat("."));
         }
-        num2 = Double.parseDouble(textField.getText());
-        System.out.println(num1);
+
         if (e.getSource() == equation) {
-
-
+            num2 = Double.parseDouble(textField.getText());
             if (operator == "+") {
                 result = num1 + num2;
                 System.out.println(num1 + operator + num2 + " " + result);
@@ -159,8 +155,6 @@ public class Calculator implements ActionListener {
                 System.out.println(num1 + operator + num2 + " " + result);
             }
         }
-
-        //textField.setText();
 
         if (e.getSource() == clear) {
             textField.setText("");
