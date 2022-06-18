@@ -8,12 +8,15 @@ public class Calculator implements ActionListener {
     JTextField textField;
     JButton[] numbers;
     JButton[] operators;
-    JButton addition, subtraction, multiplication, division, sqr, sqrRoot, clear, delete, equation;
+    JButton addition, subtraction, multiplication, division, sqr, decimal, clear, delete, equation;
     JPanel panel;
     Font font;
 
-    final int WIDTH =700;
-    final int HEIGHT = 700;
+    double num1, num2, result;
+    String operator;
+
+    final int WIDTH = 420;
+    final int HEIGHT = 550;
 
     public Calculator() {
         /*** window ***/
@@ -22,13 +25,15 @@ public class Calculator implements ActionListener {
 
         /*** text ***/
         textField = new JTextField();
-        textField.setBounds(50, 25, 400, 50);
+        textField.setBounds(50, 25, 300, 50);
         font = new Font("Times New Roman", Font.BOLD, 30);
         textField.setFont(font);
         frame.add(textField);
 
-        //textField.setEditable(false);
-
+        /*** Num 1, Num2 and Result ***/
+        num1 = 0;
+        num2 = 0;
+        result = 0;
         /*** BUTTONS ***/
         //Operator buttons
         operators = new JButton[9];
@@ -36,8 +41,8 @@ public class Calculator implements ActionListener {
         subtraction = new JButton("-");
         multiplication = new JButton("*");
         division = new JButton("/");
-        sqr = new JButton("^2");
-        sqrRoot = new JButton("^(1/2)");
+        sqr = new JButton("^");
+        decimal = new JButton(".");
         clear = new JButton("C");
         delete = new JButton("<");
         equation = new JButton("=");
@@ -47,7 +52,7 @@ public class Calculator implements ActionListener {
         operators[2] = multiplication;
         operators[3] = division;
         operators[4] = sqr;
-        operators[5] = sqrRoot;
+        operators[5] = decimal;
         operators[6] = clear;
         operators[7] = delete;
         operators[8] = equation;
@@ -68,12 +73,14 @@ public class Calculator implements ActionListener {
             numbers[i].setFocusable(false);
         }
 
-        delete.setBounds(230, 90, 100, 30);
-        clear.setBounds(350, 90, 100, 30);
+
+        clear.setBounds(50, 430, 100, 50);
+        delete.setBounds(150, 430, 100, 50);
+        equation.setBounds(250, 430, 100, 50);
 
         panel = new JPanel();
-        panel.setBounds(50, 80, 400, 300);
-        panel.setLayout(new GridLayout(5, 4, 1, 1));
+        panel.setBounds(50, 100, 300, 300);
+        panel.setLayout(new GridLayout(4, 4, 10, 10));
         panel.setBackground(Color.white);
 
         //numbers button visible in the panel
@@ -89,11 +96,15 @@ public class Calculator implements ActionListener {
         panel.add(numbers[8]);
         panel.add(numbers[9]);
         panel.add(multiplication);
+        panel.add(sqr);
         panel.add(numbers[0]);
+        panel.add(decimal);
+        panel.add(division);
 
-//to make delete and clear button visible in the panel
-        //frame.add(delete);
-        //frame.add(clear);
+        //to make delete and clear button visible in the panel
+        frame.add(delete);
+        frame.add(clear);
+        frame.add(equation);
 
         frame.add(panel);
         frame.setLayout(null);
@@ -103,6 +114,60 @@ public class Calculator implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        //if hit numbers button, then shows them in text field
+        for (int i = 0; i < 10; i++) {
+            if (e.getSource() == numbers[i]) {
+                textField.setText(textField.getText().concat(String.valueOf(i)));
+
+            }
+        }
+        num1 = Double.parseDouble(textField.getText());
+        System.out.println(num1);
+
+        //if hit operations button, then shows them in text field
+        for (int i = 0; i < 6; i++) {
+            if (e.getSource() == operators[i]) {
+                //num1 = Double.parseDouble(textField.getText());
+                operator = operators[i].getText();
+                textField.setText("");
+            }
+        }
+        for (int i = 0; i < 10; i++) {
+            if (e.getSource() == numbers[i]) {
+                textField.setText(textField.getText().concat(String.valueOf(i)));
+            }
+        }
+        num2 = Double.parseDouble(textField.getText());
+        System.out.println(num1);
+        if (e.getSource() == equation) {
+
+
+            if (operator == "+") {
+                result = num1 + num2;
+                System.out.println(num1 + operator + num2 + " " + result);
+            } else if (operator == "-") {
+                result = num1 - num2;
+                System.out.println(num1 + operator + num2 + " " + result);
+            } else if (operator == "*") {
+                result = num1 * num2;
+                System.out.println(num1 + operator + num2 + " " + result);
+            } else if (operator == "/") {
+                result = num1 / num2;
+                System.out.println(num1 + operator + num2 + " " + result);
+            } else if (operator == "^") {
+                result = Math.pow(num1, num2);
+                System.out.println(num1 + operator + num2 + " " + result);
+            }
+        }
+
+        //textField.setText();
+
+        if (e.getSource() == clear) {
+            textField.setText("");
+        } else if (e.getSource() == delete) {
+            String line = textField.getText();
+            textField.setText(line.substring(0, line.length() - 1));
+        }
 
     }
 
