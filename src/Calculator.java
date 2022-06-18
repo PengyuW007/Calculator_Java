@@ -154,6 +154,8 @@ public class Calculator implements ActionListener {
                 result = Math.pow(num1, num2);
                 System.out.println(num1 + operator + num2 + " " + result);
             }
+
+            textField.setText(String.valueOf(result));
         }
 
         if (e.getSource() == clear) {
